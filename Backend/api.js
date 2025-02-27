@@ -29,9 +29,9 @@ app.get("/EPIC/:date", async function(req, res){
     let dateString1 = dateformat(date,"yyyy-mm-dd")
     let dateString = dateformat(date,"yyyy/mm/dd")
     let image = []
-    let datas = await EPIC(dateString);
+    let datas = await EPIC(dateString1);
     for(let x in datas){
-        image[x] = await EPICIMAGE(dateString1,datas[x].image);
+        image[x] = await EPICIMAGE(dateString,datas[x].image);
     }
     
     let result = {
