@@ -1,12 +1,12 @@
-const fs = require("fs");
-const axios = require("axios");
+import fs from "fs";
+import axios from "axios";
 const apiKey = new Promise(function (resolve) {
   fs.readFile("apiKey.json", async function (err, data) {
     if (err) throw err;
     resolve(JSON.parse(data).Api);
   });
 });
- async function APOD(date) {
+ export async function APOD(date) {
   let urladdress = `https://api.nasa.gov/planetary/apod?date=${date}&&api_key=${await apiKey}`;
   let data = await axios.get(urladdress).then(function (response) {
     return response.data;
@@ -15,7 +15,7 @@ const apiKey = new Promise(function (resolve) {
   });
   return data;
 }
- async function EPIC(date) {
+ export async function EPIC(date) {
   let urladdress = `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${await apiKey}`;
   let data = await axios.get(urladdress).then(function (response) {
     return response.data;
@@ -24,7 +24,7 @@ const apiKey = new Promise(function (resolve) {
   });
   return data;
 }
-async function EPICIMAGE(date,imageID){
+export async function EPICIMAGE(date,imageID){
     let urladdress = `https://api.nasa.gov/EPIC/archive/natural/${date}/png/${imageID}.png?api_key=${await apiKey}
 `;
     //let data = await axios.get(urladdress).then(function (response) {
@@ -35,6 +35,5 @@ async function EPICIMAGE(date,imageID){
     return urladdress;
 }
 
-module.exports = { APOD,EPIC,EPICIMAGE };
 
 
